@@ -1,0 +1,17 @@
+{
+  "name": "python-blockchain-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.py",
+  "scripts": {
+    "start": "python app.py --reload",
+    "start-backend": "python -m app.py",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "preline": "^2.1.0"
+  }
+}

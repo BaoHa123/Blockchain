@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="https://preline.co/assets/css/main.min.css" />
+  </head>
+  <style>
+    #videoContainer {
+      position: relative;
+      border: 1px solid black;
+      padding: 0px;
+      border-radius: 5px;
+    }
+
+    #record {
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .video {
+      object-fit: cover;
+      height: 367px;
+      width: 612px;
+      border-radius: 4px;
+    }
+    .hs-select.relative {
+      width: 30%;
+    }
+    .overlay-frame {
+      position: absolute !important;
+    }
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      --w: 10ch;
+      font-weight: bold;
+      font-family: monospace;
+      font-size: 30px;
+      line-height: 1.4em;
+      letter-spacing: var(--w);
+      width: var(--w);
+      overflow: hidden;
+      white-space: nowrap;
+      color: #0000;
+      text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+        calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+        calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+        calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+        calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      animation: l20 2s infinite linear;
+    }
+    .loader:before {
+      content: "Loading...";
+    }
+
+    @keyframes l20 {
+      9.09% {
+        text-shadow: calc(0 * var(--w)) -10px #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      18.18% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) -10px #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      27.27% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) -10px #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      36.36% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) -10px #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      45.45% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) -10px #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      54.54% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) -10px #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      63.63% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) -10px #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      72.72% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) -10px #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) 0 #000;
+      }
+      81.81% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) -10px #000, calc(-9 * var(--w)) 0 #000;
+      }
+      90.90% {
+        text-shadow: calc(0 * var(--w)) 0 #000, calc(-1 * var(--w)) 0 #000,
+          calc(-2 * var(--w)) 0 #000, calc(-3 * var(--w)) 0 #000,
+          calc(-4 * var(--w)) 0 #000, calc(-5 * var(--w)) 0 #000,
+          calc(-6 * var(--w)) 0 #000, calc(-7 * var(--w)) 0 #000,
+          calc(-8 * var(--w)) 0 #000, calc(-9 * var(--w)) -10px #000;
+      }
+    }
+  </style>
+
+  <body class="">
+    <!-- Loading Overlay -->
+    <div
+      class="fixed inset-0 flex items-center justify-center bg-white/50 dark:bg-neutral-800/40 hidden"
+      style="z-index: 9999"
+      id="process_loading"
+    >
+      <div class="flex flex-col items-center">
+        <div
+          class="animate-spin h-16 w-16 border-8 border-blue-600 border-t-transparent rounded-full dark:border-blue-500"
+          role="status"
+          aria-label="loading"
+        ></div>
+        <span class="text-2xl" id="text_loading">Loading...</span>
+      </div>
+    </div>
+    <div class="overlay" id="overlay">
+      <div class="loader"></div>
+    </div>
+    <!-- ========== HEADER ========== -->
+    <header
+      class="sticky top-2 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm"
+    >
+      {% include 'layouts/nav.html' %}
+    </header>
+    <!-- ========== END HEADER ========== -->
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main id="content">
+      <div
+        class="max-w-[85rem] mx-auto pt-12 pb-10 px-4 sm:px-6 lg:px-8 md:pt-24"
+      >
+        {%block content%} {%endblock%}
+      </div>
+    </main>
+    <!-- ========== END MAIN CONTENT ========== -->
+    <!-- ========== FOOTER ========== -->
+    <footer
+      class="mt-auto w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto"
+    >
+      {% include 'layouts/footer.html' %}
+    </footer>
+
+    <!-- ========== END FOOTER ========== -->
+  </body>
+  {% block scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.3/socket.io.min.js"></script>
+  <script type="module" src="/node_modules/preline/dist/preline.js"></script>
+  <script>
+    function showToast(icon, title, position = "top-end", timer = 3000) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: position,
+        showConfirmButton: false,
+        timer: timer,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        },
+      });
+
+      Toast.fire({
+        icon: icon,
+        title: title,
+      });
+    }
+    function showSwal(icon, title, text) {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+      });
+    }
+    document.addEventListener("DOMContentLoaded", (event) => {
+      const currentUrl = window.location.pathname;
+      const links = document.querySelectorAll("nav a");
+      setTimeout(() => {
+        $("#overlay").css("display", "none");
+      }, 650);
+      links.forEach((link) => {
+        if (link.getAttribute("data-url") === currentUrl) {
+          link.setAttribute("aria-current", "page");
+          link.classList.remove("text-gray-500", "hover:text-gray-400");
+          link.classList.add("text-blue-600", "hover:text-blue-500");
+        } else {
+          link.setAttribute("aria-current", "");
+        }
+      });
+    });
+  </script>
+  {%endblock%}
+</html>
